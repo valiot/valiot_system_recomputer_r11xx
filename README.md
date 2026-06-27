@@ -15,7 +15,7 @@ This is the base Nerves System configuration for the reComputer R11xx, a versati
 | CPU                  | Broadcom BCM2711 quad-core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz |
 | Memory               | Up to 8GB RAM                   |
 | Storage             | Up to 32GB eMMC, MicroSD card slot, M.2 NVMe SSD slot (2280-M Key) |
-| Linux kernel        | 6.1 w/ Raspberry Pi patches     |
+| Linux kernel        | 6.12 w/ Raspberry Pi patches    |
 | IEx terminal        | HDMI and USB keyboard (can be disable) |
 | Ethernet            | 1x 10/100/1000Mbps (supports PoE*), 1x 10/100Mbps |
 | Serial              | 2x RS485 (isolated), 2x RS232 (isolated) |
@@ -65,6 +65,21 @@ for more information.
 If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
 systems](https://hexdocs.pm/nerves/customizing-systems.html).
+
+## Upgrading to 2.0
+
+This system moved to a new MicroSD/eMMC partition layout that supports automatic
+rollback of broken firmware updates (Raspberry Pi `tryboot`). This is a **one-way**
+upgrade: reverting to the pre-2.0 layout requires reflashing the device.
+
+> **CM4 note:** automatic rollback relies on a recent Raspberry Pi bootloader
+> (`tryboot` support). Make sure the CM4's bootloader EEPROM is up to date before
+> relying on auto-revert in the field.
+
+After a firmware update the device must validate itself or it reverts on the next
+reboot. Call `Nerves.Runtime.validate_firmware/0` (or enable the `nerves_runtime`
+startup guard) in your application. Also note that `nerves_fw_active` is gone —
+use `Nerves.Runtime.firmware_slots/0` to query the active slot.
 
 ## Supported WiFi devices
 
