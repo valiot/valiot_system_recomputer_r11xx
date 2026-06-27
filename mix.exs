@@ -1,8 +1,8 @@
-defmodule NervesSystemRecomputerR11xx.MixProject do
+defmodule ValiotSystemRecomputerR11xx.MixProject do
   use Mix.Project
 
-  @github_organization "alde103"
-  @app :nerves_system_recomputer_r11xx
+  @github_organization "valiot"
+  @app :valiot_system_recomputer_r11xx
   @source_url "https://github.com/#{@github_organization}/#{@app}"
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()
@@ -76,7 +76,7 @@ defmodule NervesSystemRecomputerR11xx.MixProject do
   end
 
   defp description do
-    "Nerves System - Raspberry Pi 4 (64-bits)"
+    "Valiot System - Recomputer R11xx (64-bits)"
   end
 
   defp docs do
